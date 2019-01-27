@@ -19,7 +19,9 @@
   "homepage": "https://github.com/victormimo/Hack-Along-Server#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "keystone": "^4.0.0"
+    "keystone": "^4.0.0",
+    "morgan": "^1.9.1",
+    "winston": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

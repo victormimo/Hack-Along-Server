@@ -1,5 +1,7 @@
 module.exports = {
-  keystoneSecret: "fijhd83t79pruei89eruo",
+  keystoneSecret: 'fijhd83t79pruei89eruo',
   mongoURI:
-    "mongodb://hack_along_dev:devpassword1@ds213705.mlab.com:13705/hack-along-dev"
+    'mongodb://hack_along_dev:devpassword1@ds213705.mlab.com:13705/hack-along-dev',
+  port: 5000,
+  keystonePort: 8000
 };
