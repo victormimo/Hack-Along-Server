@@ -10,7 +10,7 @@ const logger = winston.createLogger({
     }),
     new winston.transports.File({
       filename: './logs/logfile.log',
-      level: 'warn',
+      level: 'info',
       handleExceptions: true,
       json: true,
       colorize: false,
@@ -31,5 +31,5 @@ logger.stream = {
     logger.info(message);
   }
 };
-
+winston.add(logger);
 module.exports = logger;
