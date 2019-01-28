@@ -23,5 +23,7 @@ app.get('/api/hello', (req, res) => {
   res.send('hello world');
 });
 
+require('./routes/controllers/newListingRoute')(app);
+
 app.listen(keys.port);
 keystone.start();
