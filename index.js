@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
+require('./config/logging');
+require('./middlewares/config')(app);
 
 const keys = require('./config/keys');
-const logger = require('./config/logging');
-require('./routes/middlewares/config')(app, logger);
 
 const keystone = require('keystone');
 keystone.import('models');
@@ -18,12 +18,9 @@ keystone.init({
   mongo: keys.mongoURI
 });
 
-app.get('/api/hello', (req, res) => {
-  res.status(200);
-  res.send('hello world');
-});
+const createListingRouter = require('./routes/createListing');
 
-require('./routes/controllers/newListingRoute')(app);
+app.use('/api/create-listing', createListingRouter);
 
 app.listen(keys.port);
 keystone.start();

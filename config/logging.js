@@ -1,35 +1,32 @@
 var winston = require('winston');
 
-const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console({
-      level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
-      handleExceptions: true,
-      json: false,
-      colorize: true
-    }),
-    new winston.transports.File({
-      filename: './logs/logfile.log',
-      level: 'info',
-      handleExceptions: true,
-      json: true,
-      colorize: false,
-      maxsize: 5242880, //5MB
-      maxFiles: 5
-    })
-  ],
-  exitOnError: false
+const consoleTransport = new winston.transports.Console({
+  level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
+  handleExceptions: true,
+  json: false,
+  colorize: true
 });
 
+const fileTransport = new winston.transports.File({
+  filename: './logs/logfile.log',
+  level: 'info',
+  handleExceptions: true,
+  json: true,
+  colorize: false,
+  maxsize: 5242880, //5MB
+  maxFiles: 5
+});
+
+winston.add(consoleTransport);
+winston.add(fileTransport);
+
 if (process.env.NODE_ENV !== 'production') {
-  logger.debug('Logging initialized at debug level');
+  winston.debug('Logging initialized at debug level');
 }
 
-logger.stream = {
+winston.stream = {
   write: function(message, encoding) {
     // use the 'info' log level so the output will be picked up by both transports (file and console)
-    logger.info(message);
+    winston.info(message);
   }
 };
-winston.add(logger);
-module.exports = logger;
